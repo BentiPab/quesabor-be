@@ -11,7 +11,8 @@ import java.util.List;
 
 @Entity(name = "sales")
 @NamedQueries(value = {
-        @NamedQuery(name = "GetAllSales", query = "from sales")
+        @NamedQuery(name = "GetAllSales", query = "from sales"),
+        @NamedQuery(name = "GetSalesBetweenDates", query = "from sales where saleDate > :startDate and saleDate < :endDate")
 })
 public class Sale {
     @Id

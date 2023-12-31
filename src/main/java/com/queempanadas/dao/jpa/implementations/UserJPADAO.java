@@ -18,10 +18,4 @@ public class UserJPADAO extends AbstractJPADAO<User> {
         return query.getSingleResult();
     }
 
-    public User loginUser(String username, String password) {
-        Query<User> query = getSession().createNamedQuery("LoginUser", User.class);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        return query.getSingleResult();
-    }
 }

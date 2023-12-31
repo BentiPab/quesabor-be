@@ -2,6 +2,7 @@ package com.queempanadas.dao.jpa.implementations;
 
 import com.queempanadas.dao.jpa.AbstractJPADAO;
 import com.queempanadas.model.Empanada;
+import jakarta.persistence.PersistenceContext;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +10,6 @@ import java.util.List;
 
 @Repository
 public class EmpanadaJPADAO extends AbstractJPADAO<Empanada> {
-
 
     public EmpanadaJPADAO() {
         super(Empanada.class);

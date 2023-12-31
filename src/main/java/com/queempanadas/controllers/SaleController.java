@@ -6,6 +6,7 @@ import com.queempanadas.exceptions.FieldValidationException;
 import com.queempanadas.dto.NewSaleDto;
 import com.queempanadas.model.Sale;
 import com.queempanadas.services.SaleService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class SaleController extends AbstractController{
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public String getSales() throws JsonProcessingException {
-        List<Sale> sales = saleService.getAll();
+    public String getSales(@PathParam("type") String type) throws JsonProcessingException {
+        List<Sale> sales = saleService.getAllBetweenDates(type);
         return mapper.writeValueAsString(sales);
     }
 

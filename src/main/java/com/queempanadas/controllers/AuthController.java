@@ -1,59 +1,54 @@
 package com.queempanadas.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.queempanadas.dto.AuthBody;
-import com.queempanadas.dto.AuthLoginDto;
-import com.queempanadas.security.JwtGenerator;
+import com.queempanadas.model.User;
+import com.queempanadas.model.requests.LoginRequest;
+import com.queempanadas.model.response.ErrorResponse;
+import com.queempanadas.model.response.LoginResponse;
+import com.queempanadas.security.JwtUtil;
 import com.queempanadas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/api/auth", produces = "application/json")
 public class AuthController extends AbstractController{
+
     @Autowired
-    private AuthenticationManager authenticationManager;
+    JwtUtil jwtUtil;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private JwtGenerator jwtGenerator;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody AuthBody adminAuthDto) throws JsonProcessingException {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(adminAuthDto.getUsername(), adminAuthDto.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+    public ResponseEntity login(@RequestBody LoginRequest loginRequest)  {
+        try {
+        Authentication authentication =
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        String username = authentication.getName();
+        User user = new User(username,"", false);
+        String token = jwtUtil.createToken(user);
+        LoginResponse loginRes = new LoginResponse(token);
 
-        String token = jwtGenerator.generateToken(authentication);
-        AuthLoginDto responseDto = new AuthLoginDto();
-        responseDto.setSuccess(true);
-        responseDto.setMessage("login successful !!");
-        responseDto.setToken(token);
-        return mapper.writeValueAsString(responseDto);
+        return ResponseEntity.ok(loginRes);
+
+    }catch (BadCredentialsException e){
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST,"Invalid username or password");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }catch (Exception e){
+            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
     }
 
-    @RequestMapping(value = "/logut", method = RequestMethod.POST)
-    public String loguot(@RequestBody AuthBody adminAuthDto) throws JsonProcessingException {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(adminAuthDto.getUsername(), adminAuthDto.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String token = jwtGenerator.generateToken(authentication);
-        AuthLoginDto responseDto = new AuthLoginDto();
-        responseDto.setSuccess(true);
-        responseDto.setMessage("login successful !!");
-        responseDto.setToken(token);
-        UserDetails admin = userService.loadUserByUsername(adminAuthDto.getUsername());
-        return mapper.writeValueAsString(responseDto);
-    }
 }

@@ -1,0 +1,8 @@
+security:
+    jwt:
+        expiration-time: 86400000
+        secret-key: thisisthesecretkeysupersecret
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true

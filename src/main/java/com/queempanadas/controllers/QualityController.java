@@ -12,7 +12,7 @@ import java.util.List;
 
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/api//qualities", produces = "application/json")
+@RequestMapping(value = "/api/qualities", produces = "application/json")
 public class QualityController extends AbstractController {
     @Autowired
     QualityService qualityService;

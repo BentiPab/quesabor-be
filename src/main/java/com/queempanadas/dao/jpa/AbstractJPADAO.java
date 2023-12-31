@@ -9,11 +9,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 
 public abstract class AbstractJPADAO<T> implements IDAO<T> {
 
     protected Class<T> clazz;
     private static Session session;
+
+
+    @Autowired
+    Environment env;
 
     public AbstractJPADAO(Class<T> clazz) {
         this.clazz = clazz;
@@ -27,10 +34,11 @@ public abstract class AbstractJPADAO<T> implements IDAO<T> {
     }
 
     protected SessionFactory getSessionFactory() {
+
         Configuration configuration = new Configuration().configure();
+
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties())
-                .configure();
+                .applySettings(configuration.getProperties()).configure();
         return configuration.buildSessionFactory(builder.build());
     }
 
