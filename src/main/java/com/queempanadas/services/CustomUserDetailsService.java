@@ -23,7 +23,7 @@ public class CustomUserDetailsService extends AbstractService<User> implements U
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = ((UserJPADAO) this.dao).findByUsername(username);
         List<String> roles = new ArrayList<>();
-        roles.add("USER");
+        roles.add(user.getRole());
         UserDetails userDetails =
                 org.springframework.security.core.userdetails.User.builder()
                         .username(user.getUsername())

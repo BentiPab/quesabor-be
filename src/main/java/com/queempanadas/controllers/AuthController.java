@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/api/auth", produces = "application/json")
@@ -35,7 +37,8 @@ public class AuthController extends AbstractController{
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         String username = authentication.getName();
-        User user = new User(username,"", false);
+        String role = String.valueOf(authentication.getAuthorities().stream().toList().get(0));
+        User user = new User(username,"",role);
         String token = jwtUtil.createToken(user);
         LoginResponse loginRes = new LoginResponse(token);
 

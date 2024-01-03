@@ -23,15 +23,15 @@ public class User  {
     private String password;
 
     @Column(nullable = false)
-    private boolean isAdmin;
+    private String role;
 
     public User() {
     }
 
-    public User(String username, String password, boolean isAdmin) {
+    public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -53,12 +53,12 @@ public class User  {
         this.password = password;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public String getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public long getIdUser() {

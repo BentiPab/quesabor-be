@@ -9,9 +9,9 @@
 		<relativePath/>
 	</parent>
 	<groupId>com</groupId>
-	<artifactId>que-empanadas</artifactId>
+	<artifactId>que-product</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>que-empanadas</name>
+	<name>que-product</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>21</java.version>

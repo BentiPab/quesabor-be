@@ -3,15 +3,15 @@ package com.queempanadas.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-@Entity(name = "empanada_sale")
-public class EmpanadaSale {
+@Entity(name = "product_sale")
+public class ProductSale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "empanada_sale_id")
-    private long id;
+    @Column(name = "product_sale_id")
+    private long productSaleId;
 
     @Column
-    private String empanada;
+    private String product;
 
     @JsonBackReference
     @ManyToOne
@@ -25,15 +25,15 @@ public class EmpanadaSale {
     private int empanadaPrice;
 
 
-    public EmpanadaSale() {
+    public ProductSale() {
 
     }
 
-    public EmpanadaSale(Empanada empanada, Sale sale, int quantity) {
-        this.empanada = empanada.getName();
+    public ProductSale(Product product, Sale sale, int quantity) {
+        this.product = product.getName();
         this.quantity = quantity;
         this.sale = sale;
-        this.empanadaPrice = empanada.getQuality().getPrice();
+        this.empanadaPrice = product.getQuality().getPrice();
     }
     public int getQuantity() {
         return quantity;
@@ -51,16 +51,16 @@ public class EmpanadaSale {
         this.sale = sale;
     }
 
-    public String getEmpanada() {
-        return empanada;
+    public String getProduct() {
+        return product;
     }
 
-    public void setEmpanada(String empanada) {
-        this.empanada = empanada;
+    public void setProduct(String product) {
+        this.product = product;
     }
 
-    public long getId() {
-        return id;
+    public long getProductSaleId() {
+        return productSaleId;
     }
 
     public int getEmpanadaPrice() {

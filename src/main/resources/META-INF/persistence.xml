@@ -10,10 +10,10 @@
         <class>com.queempanadas.model.User</class>
         <class>com.queempanadas.model.Entry</class>
         <class>com.queempanadas.model.Sale</class>
-        <class>com.queempanadas.model.Quality</class>
-        <class>com.queempanadas.model.EmpanadaSale</class>
-        <class>com.queempanadas.model.Empanada</class>
-        <class>com.queempanadas.model.EmpanadaEntry</class>
+        <class>com.queempanadas.model.ProductType</class>
+        <class>com.queempanadas.model.ProductSale</class>
+        <class>com.queempanadas.model.Product</class>
+        <class>com.queempanadas.model.ProductEntry</class>
         <properties>
             <!-- Database connection settings -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />

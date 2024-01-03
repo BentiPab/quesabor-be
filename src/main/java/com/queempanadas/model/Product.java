@@ -1,20 +1,19 @@
 package com.queempanadas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
-@Entity(name = "empanadas")
+@Entity(name = "products")
 @NamedQueries(value = {
-        @NamedQuery(name = "GetAllEmpanadas", query = "from empanadas"),
-        @NamedQuery(name = "GetMultipleByIds", query = "from empanadas where idEmpanada in (:ids)")
+        @NamedQuery(name = "GetAllProducts", query = "from products"),
+        @NamedQuery(name = "GetMultipleByIds", query = "from products where idProduct in (:ids)")
 })
-public class Empanada {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_empanada", updatable = false, nullable = false)
-    private long idEmpanada;
+    @Column(name = "id_product", updatable = false, nullable = false)
+    private long idProduct;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -25,27 +24,27 @@ public class Empanada {
     @Column(name = "stock", nullable = false)
     private int stock = 0;
 
-    @JsonIgnoreProperties("empanadas")
     @ManyToOne
-    @JoinColumn(name = "id_quality", nullable = false)
-    private Quality quality;
+    @JsonIgnoreProperties("products")
+    @JoinColumn(name = "id_product_type", nullable = false)
+    private ProductType productType;
 
-    public Empanada() {
+    public Product() {
 
     }
 
-    public Empanada(String name, int safetyStock, int stock) {
+    public Product(String name, int safetyStock, int stock) {
         this.name = name;
         this.safetyStock = safetyStock;
         this.stock = stock;
     }
 
-    public Empanada(String name) {
+    public Product(String name) {
         this.name = name;
     }
 
-    public long getIdEmpanada() {
-        return idEmpanada;
+    public long getIdProduct() {
+        return idProduct;
     }
 
     public String getName() {
@@ -72,11 +71,11 @@ public class Empanada {
         this.stock = stock;
     }
 
-    public Quality getQuality() {
-        return this.quality;
+    public ProductType getQuality() {
+        return this.productType;
     }
 
-    public void setQuality(Quality quality) {
-        this.quality = quality;
+    public void setQuality(ProductType productType) {
+        this.productType = productType;
     }
 }

@@ -8,6 +8,7 @@ import com.queempanadas.model.Sale;
 import com.queempanadas.services.SaleService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,23 +24,23 @@ public class SaleController extends AbstractController{
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public String getSales(@PathParam("type") String type) throws JsonProcessingException {
+    public ResponseEntity<List<Sale>> getSales(@PathParam("type") String type) throws JsonProcessingException {
         List<Sale> sales = saleService.getAllBetweenDates(type);
-        return mapper.writeValueAsString(sales);
+        return ResponseEntity.ok(sales);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String getQuality(@PathVariable("id") int id) throws FieldValidationException, JsonProcessingException {
+    public ResponseEntity<Sale> getSale(@PathVariable("id") int id) throws FieldValidationException, JsonProcessingException {
         Sale sale = saleService.getById(id);
-        return mapper.writeValueAsString(sale);
+        return ResponseEntity.ok(sale);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     @ResponseBody
-    public String createSale(@RequestBody NewSaleDto saleBody) throws AbstractException, JsonProcessingException {
+    public ResponseEntity<Sale> createSale(@RequestBody NewSaleDto saleBody) throws AbstractException, JsonProcessingException {
         Sale sale = saleService.createSale(saleBody);
-        return mapper.writeValueAsString(sale);
+        return ResponseEntity.ok(sale);
     }
 
 

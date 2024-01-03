@@ -30,9 +30,9 @@ public class Entry {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "entry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<EmpanadaEntry> empanadasEntry = new ArrayList<EmpanadaEntry>();
+    private List<ProductEntry> empanadasEntry = new ArrayList<ProductEntry>();
 
-    public Entry(Shift shift, List<EmpanadaEntry> empanadasEntry) {
+    public Entry(Shift shift, List<ProductEntry> empanadasEntry) {
         this.shift = shift;
         this.empanadasEntry = empanadasEntry;
     }
@@ -57,11 +57,11 @@ public class Entry {
         return entryDate;
     }
 
-    public List<EmpanadaEntry> getEmpanadasEntry() {
+    public List<ProductEntry> getEmpanadasEntry() {
         return empanadasEntry;
     }
 
-    public void setEmpanadasEntry(List<EmpanadaEntry> empanadasEntry) {
+    public void setEmpanadasEntry(List<ProductEntry> empanadasEntry) {
         this.empanadasEntry = empanadasEntry;
     }
 }

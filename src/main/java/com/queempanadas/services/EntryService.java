@@ -3,8 +3,8 @@ package com.queempanadas.services;
 import com.queempanadas.dao.jpa.implementations.EntryJPADAO;
 import com.queempanadas.exceptions.AbstractException;
 import com.queempanadas.exceptions.FieldValidationException;
-import com.queempanadas.model.Empanada;
-import com.queempanadas.model.EmpanadaEntry;
+import com.queempanadas.model.Product;
+import com.queempanadas.model.ProductEntry;
 import com.queempanadas.model.Entry;
 import com.queempanadas.dto.NewEntryDto;
 import org.springframework.stereotype.Service;
@@ -34,14 +34,14 @@ public class EntryService extends AbstractService<Entry> {
                 .keySet()
                 .stream()
                 .toList();
-        List<Empanada> empanadas = new EmpanadaService().getMultipleById(ids);
+        List<Product> products = new ProductService().getMultipleById(ids);
 
-        List<EmpanadaEntry> empanadaSales = empanadas.stream()
-                .reduce(new ArrayList<EmpanadaEntry>(), (empanadaSaleArrayList, empanada) -> {
+        List<ProductEntry> empanadaSales = products.stream()
+                .reduce(new ArrayList<ProductEntry>(), (empanadaSaleArrayList, empanada) -> {
                     empanada.setStock(empanada.getStock() + entryBody.getEmpanadaQty()
-                            .get(empanada.getIdEmpanada()));
-                    empanadaSaleArrayList.add(new EmpanadaEntry(empanada.getName(), newEntry, entryBody.getEmpanadaQty()
-                            .get(empanada.getIdEmpanada())));
+                            .get(empanada.getIdProduct()));
+                    empanadaSaleArrayList.add(new ProductEntry(empanada.getName(), newEntry, entryBody.getEmpanadaQty()
+                            .get(empanada.getIdProduct())));
                     return empanadaSaleArrayList;
                 }, (a, b) -> {
                     return a;

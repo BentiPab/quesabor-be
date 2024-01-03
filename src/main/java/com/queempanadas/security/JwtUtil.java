@@ -4,6 +4,7 @@ import com.queempanadas.model.User;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,12 @@ import java.util.concurrent.TimeUnit;
 public class JwtUtil {
 
 
-    private final String secret_key = "mysecretkey";
-    private long accessTokenValidity = 60*60*1000;
+
+
+    @Autowired
+    private String jwtSecretKey;
+    @Autowired
+    private long accessTokenValidity;
 
     @Autowired
     private JwtParser jwtParser;
@@ -32,7 +37,7 @@ public class JwtUtil {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(tokenValidity)
-                .signWith(SignatureAlgorithm.HS256, secret_key)
+                .signWith(SignatureAlgorithm.HS256, jwtSecretKey)
                 .compact();
     }
 

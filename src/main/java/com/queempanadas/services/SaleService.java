@@ -3,14 +3,13 @@ package com.queempanadas.services;
 import com.queempanadas.dao.jpa.implementations.SaleJPADAO;
 import com.queempanadas.exceptions.AbstractException;
 import com.queempanadas.exceptions.FieldValidationException;
-import com.queempanadas.model.Empanada;
-import com.queempanadas.model.EmpanadaSale;
+import com.queempanadas.model.Product;
+import com.queempanadas.model.ProductSale;
 import com.queempanadas.dto.NewSaleDto;
 import com.queempanadas.model.Sale;
 import com.queempanadas.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +32,13 @@ public class SaleService extends AbstractService<Sale> {
                 .keySet()
                 .stream()
                 .toList();
-        List<Empanada> empanadas = new EmpanadaService().getMultipleById(ids);
+        List<Product> products = new ProductService().getMultipleById(ids);
 
-        List<EmpanadaSale> empanadaSales = empanadas.stream()
-                .reduce(new ArrayList<EmpanadaSale>(), (empanadaSaleArrayList, empanada) -> {
-                    empanada.setStock(empanada.getStock() - newSaleDto.getEmpanadaQty().get(empanada.getIdEmpanada()));
-                    empanadaSaleArrayList.add(new EmpanadaSale(empanada, newSale, newSaleDto.getEmpanadaQty()
-                            .get(empanada.getIdEmpanada())));
+        List<ProductSale> empanadaSales = products.stream()
+                .reduce(new ArrayList<ProductSale>(), (empanadaSaleArrayList, empanada) -> {
+                    empanada.setStock(empanada.getStock() - newSaleDto.getEmpanadaQty().get(empanada.getIdProduct()));
+                    empanadaSaleArrayList.add(new ProductSale(empanada, newSale, newSaleDto.getEmpanadaQty()
+                            .get(empanada.getIdProduct())));
                     return empanadaSaleArrayList;
                 }, (a, b) -> {
                     return a;

@@ -30,9 +30,9 @@
         <mapping class="com.queempanadas.model.User"/>
         <mapping class="com.queempanadas.model.Entry"/>
         <mapping class="com.queempanadas.model.Sale"/>
-        <mapping class="com.queempanadas.model.Quality"/>
-        <mapping class="com.queempanadas.model.EmpanadaSale"/>
-        <mapping class="com.queempanadas.model.Empanada"/>
-        <mapping class="com.queempanadas.model.EmpanadaEntry"/>
+        <mapping class="com.queempanadas.model.ProductType"/>
+        <mapping class="com.queempanadas.model.ProductSale"/>
+        <mapping class="com.queempanadas.model.Product"/>
+        <mapping class="com.queempanadas.model.ProductEntry"/>
     </session-factory>
 </hibernate-configuration>

@@ -7,6 +7,7 @@ import com.queempanadas.model.Entry;
 import com.queempanadas.dto.NewEntryDto;
 import com.queempanadas.services.EntryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,23 +23,23 @@ public class EntryController extends AbstractController{
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @ResponseBody
-    public String getSales() throws JsonProcessingException {
+    public ResponseEntity<List<Entry>> getSales() throws JsonProcessingException {
         List<Entry> entries = entryService.getAll();
-        return mapper.writeValueAsString(entries);
+        return ResponseEntity.ok(entries);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String getQuality(@PathVariable("id") int id) throws FieldValidationException, JsonProcessingException {
+    public ResponseEntity<Entry> getQuality(@PathVariable("id") int id) throws FieldValidationException, JsonProcessingException {
         Entry entry = entryService.getById(id);
-        return mapper.writeValueAsString(entry);
+        return ResponseEntity.ok(entry);
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     @ResponseBody
-    public String createSale(@RequestBody NewEntryDto entryBody) throws AbstractException, JsonProcessingException {
+    public ResponseEntity<Entry> createEntry(@RequestBody NewEntryDto entryBody) throws AbstractException, JsonProcessingException {
         Entry entry = entryService.createEntry(entryBody);
-        return mapper.writeValueAsString(entry);
+        return ResponseEntity.ok(entry);
     }
 
 

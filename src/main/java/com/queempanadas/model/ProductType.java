@@ -1,22 +1,21 @@
 package com.queempanadas.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "qualities")
+@Entity(name = "product_types")
 @NamedQueries(value = {
-        @NamedQuery(name = "GetAllQualities", query = "from qualities")
+        @NamedQuery(name = "GetAllProductTypes", query = "from product_types")
 })
-public class Quality {
+public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_quality", updatable = false, nullable = false)
-    private long idQuality;
+    @Column(name = "id_product_type", updatable = false, nullable = false)
+    private long idProductType;
 
 
     @Column(name = "name", nullable = false, unique = true)
@@ -26,22 +25,22 @@ public class Quality {
     private int price;
 
 
-    @JsonIgnoreProperties("quality")
-    @OneToMany(mappedBy = "quality")
-    private List<Empanada> empanadas = new ArrayList<Empanada>();
+    @JsonIgnoreProperties("productType")
+    @OneToMany(mappedBy = "productType")
+    private List<Product> products = new ArrayList<Product>();
 
 
-    public Quality(String name, int price) {
+    public ProductType(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
-    public Quality() {
+    public ProductType() {
 
     }
 
-    public long getIdQuality() {
-        return idQuality;
+    public long getIdProductType() {
+        return idProductType;
     }
 
     public String getName() {
@@ -60,11 +59,11 @@ public class Quality {
         this.price = price;
     }
 
-    public List<Empanada> getEmpanadas() {
-        return empanadas;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setEmpanadas(List<Empanada> empanadas) {
-        this.empanadas = empanadas;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }
