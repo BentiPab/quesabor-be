@@ -1,7 +1,7 @@
 security:
     jwt:
         expiration-time: 86400000
-        secret-key: thisisthesecretkeysupersecret
+        secret-key: thisisthesecretkeysupersecretbutnotassecretasitshouldbe
     jpa:
         hibernate:
             ddl-auto: update

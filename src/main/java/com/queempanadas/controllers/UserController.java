@@ -19,8 +19,8 @@ public class UserController extends AbstractController {
     @ResponseBody
     public ResponseEntity<User> getUserbyUsername(@RequestParam("username") String username) throws AbstractException {
         User user = userService.getUserbyUsername(username);
-        user.setPassword("");
-        return ResponseEntity.ok(user);
+        User newUser = new User(user.getUsername(),"", user.getRole());
+        return ResponseEntity.ok(newUser);
     }
 
 }

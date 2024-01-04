@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class ProductSale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_sale_id")
+    @Column(name = "id_product_sale")
     private long productSaleId;
 
     @Column
@@ -22,7 +22,7 @@ public class ProductSale {
     private int quantity;
 
     @Column
-    private int empanadaPrice;
+    private int productPrice;
 
 
     public ProductSale() {
@@ -33,7 +33,7 @@ public class ProductSale {
         this.product = product.getName();
         this.quantity = quantity;
         this.sale = sale;
-        this.empanadaPrice = product.getQuality().getPrice();
+        this.productPrice = product.getProductType().getPrice();
     }
     public int getQuantity() {
         return quantity;
@@ -63,11 +63,11 @@ public class ProductSale {
         return productSaleId;
     }
 
-    public int getEmpanadaPrice() {
-        return empanadaPrice;
+    public int getProductPrice() {
+        return productPrice;
     }
 
-    public void setEmpanadaPrice(int empanadaPrice) {
-        this.empanadaPrice = empanadaPrice;
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
     }
 }

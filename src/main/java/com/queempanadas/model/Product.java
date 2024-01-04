@@ -25,7 +25,6 @@ public class Product {
     private int stock = 0;
 
     @ManyToOne
-    @JsonIgnoreProperties("products")
     @JoinColumn(name = "id_product_type", nullable = false)
     private ProductType productType;
 
@@ -71,11 +70,12 @@ public class Product {
         this.stock = stock;
     }
 
-    public ProductType getQuality() {
+    @JsonIgnoreProperties("products")
+    public ProductType getProductType() {
         return this.productType;
     }
 
-    public void setQuality(ProductType productType) {
+    public void setProductType(ProductType productType) {
         this.productType = productType;
     }
 }

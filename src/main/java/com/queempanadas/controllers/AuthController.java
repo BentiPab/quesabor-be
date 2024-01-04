@@ -28,9 +28,6 @@ public class AuthController extends AbstractController{
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody LoginRequest loginRequest)  {
         try {

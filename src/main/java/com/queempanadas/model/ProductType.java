@@ -1,6 +1,7 @@
 package com.queempanadas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class ProductType {
     private int price;
 
 
-    @JsonIgnoreProperties("productType")
     @OneToMany(mappedBy = "productType")
     private List<Product> products = new ArrayList<Product>();
 
@@ -59,6 +59,7 @@ public class ProductType {
         this.price = price;
     }
 
+    @JsonIgnoreProperties("productType")
     public List<Product> getProducts() {
         return products;
     }

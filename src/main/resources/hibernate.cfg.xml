@@ -34,5 +34,7 @@
         <mapping class="com.queempanadas.model.ProductSale"/>
         <mapping class="com.queempanadas.model.Product"/>
         <mapping class="com.queempanadas.model.ProductEntry"/>
+        <mapping class="com.queempanadas.model.Promo"/>
+        <mapping class="com.queempanadas.model.PromotionSale"/>
     </session-factory>
 </hibernate-configuration>

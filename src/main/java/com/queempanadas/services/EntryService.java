@@ -46,7 +46,7 @@ public class EntryService extends AbstractService<Entry> {
                 }, (a, b) -> {
                     return a;
                 });
-        newEntry.setEmpanadasEntry(empanadaSales);
+        newEntry.setProductEntry(empanadaSales);
 
         return ((EntryJPADAO) this.dao).persist(newEntry);
     }

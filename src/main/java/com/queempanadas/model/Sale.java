@@ -35,7 +35,11 @@ public class Sale {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ProductSale> empanadasSale = new ArrayList<ProductSale>();
+    private List<ProductSale> productSale = new ArrayList<ProductSale>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<PromotionSale> promotionSale = new ArrayList<PromotionSale>();
 
     @Column(name = "sale_total", nullable = false)
     private  int saleTotal;
@@ -73,12 +77,12 @@ public class Sale {
         return saleDate;
     }
 
-    public List<ProductSale> getEmpanadasSale() {
-        return empanadasSale;
+    public List<ProductSale> getProductSale() {
+        return productSale;
     }
 
-    public void setEmpanadasSale(List<ProductSale> empanadasSale) {
-        this.empanadasSale = empanadasSale;
+    public void setProductSale(List<ProductSale> productSale) {
+        this.productSale = productSale;
     }
 
     public int getSaleTotal() {
@@ -87,5 +91,13 @@ public class Sale {
 
     public void setSaleTotal(int saleTotal) {
         this.saleTotal = saleTotal;
+    }
+
+    public List<PromotionSale> getPromotionSale() {
+        return promotionSale;
+    }
+
+    public void setPromotionSale(List<PromotionSale> promotionSale) {
+        this.promotionSale = promotionSale;
     }
 }

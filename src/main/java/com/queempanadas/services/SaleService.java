@@ -43,7 +43,15 @@ public class SaleService extends AbstractService<Sale> {
                 }, (a, b) -> {
                     return a;
                 });
-        newSale.setEmpanadasSale(empanadaSales);
+        int saleTotal = products.stream()
+                .reduce(0, (total, empanada) -> {
+                    total += empanada.getProductType().getPrice();
+                    return total;
+                }, (a, b) -> {
+                    return a;
+                });
+        newSale.setProductSale(empanadaSales);
+        newSale.setSaleTotal(saleTotal);
 
         return ((SaleJPADAO) this.dao).persist(newSale);
     }

@@ -14,6 +14,6 @@ insert into empanadas ( name , safety_stock , stock , id_quality ) values ('humi
 insert into empanadas ( name , safety_stock , stock , id_quality ) values ('matambre a la pizza', 100 ,10 ,2);
 insert into empanadas ( name , safety_stock , stock , id_quality ) values ('capresse', 100 ,10 ,2);
 
-insert into users(username, password, role) values ('pelba', '$2a$12$OjYJN9GnYC9DAgShkGLHGOwFOSk4KT0UKUuZUCsW/VNdqeCt9vPJC', 'admin');
+insert into users(username, password, role) values ('pelba', '$2a$12$OjYJN9GnYC9DAgShkGLHGOwFOSk4KT0UKUuZUCsW/VNdqeCt9vPJC', 'ADMIN');
 
 commit;

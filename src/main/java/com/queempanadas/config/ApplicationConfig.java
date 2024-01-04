@@ -5,8 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.queempanadas.security.JwtAuthorizationFilter;
 import com.queempanadas.security.JwtUtil;
 import com.queempanadas.services.CustomUserDetailsService;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
+import com.queempanadas.services.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,26 +32,20 @@ public class ApplicationConfig {
         return new JwtUtil();
     }
 
-    @Bean
-    public JwtParser jwtParser() {
-        return Jwts.parser()
-                .setSigningKey(env.getProperty("security.jwt.secret-key"));
-    }
-
-    ;
 
     @Bean
     public ObjectMapper mapper() {
         return new ObjectMapper().registerModule(new JavaTimeModule());
     }
 
+
     @Bean
-    public String jwtSecretKey() {
-        return env.getProperty("security.jwt.secret-key");
+    public Long accessTokenValidity() {
+        return Long.parseLong(env.getProperty("security.jwt.expiration-time"));
     }
 
     @Bean
-    public Long accesTokenValidity() {
-        return Long.parseLong(env.getProperty("security.jwt.expiration-time"));
+    public PromotionService promotionService() {
+        return new PromotionService();
     }
 }

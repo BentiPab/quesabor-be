@@ -11,14 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
@@ -42,8 +41,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
             if (claims != null & jwtUtil.validateClaims(claims)) {
                 String username = claims.getSubject();
+                String role = (String) claims.get("role");
+                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
+                List<SimpleGrantedAuthority> roles = new ArrayList<>();
+                roles.add(authority);
                 Authentication authentication =
-                        new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                        new UsernamePasswordAuthenticationToken(username, null, roles);
                 SecurityContextHolder.getContext()
                         .setAuthentication(authentication);
             }

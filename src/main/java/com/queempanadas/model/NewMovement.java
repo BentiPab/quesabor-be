@@ -1,11 +1,14 @@
 package com.queempanadas.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class NewMovement {
-    private Map<Long, Integer> empanadaQty = new HashMap<>();
+    @JsonProperty("productQty")
+    private Map<Long, Integer> productQty = new HashMap<>();
     public Map<Long, Integer> getEmpanadaQty() {
-        return empanadaQty;
+        return productQty;
     }
 }

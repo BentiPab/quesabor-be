@@ -14,6 +14,8 @@
         <class>com.queempanadas.model.ProductSale</class>
         <class>com.queempanadas.model.Product</class>
         <class>com.queempanadas.model.ProductEntry</class>
+        <class>com.queempanadas.model.Promo</class>
+        <class>com.queempanadas.model.PromotionSale</class>
         <properties>
             <!-- Database connection settings -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
