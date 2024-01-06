@@ -3,6 +3,7 @@ package com.queempanadas.services;
 import com.queempanadas.dao.jpa.implementations.EntryJPADAO;
 import com.queempanadas.exceptions.AbstractException;
 import com.queempanadas.exceptions.FieldValidationException;
+import com.queempanadas.exceptions.ProductsNotFoundException;
 import com.queempanadas.model.Product;
 import com.queempanadas.model.ProductEntry;
 import com.queempanadas.model.Entry;
@@ -28,14 +29,16 @@ public class EntryService extends AbstractService<Entry> {
         return ((EntryJPADAO) this.dao).getAll();
     }
 
-    public Entry createEntry(NewEntryDto entryBody) throws AbstractException {
+    public Entry createEntry(NewEntryDto entryBody) throws AbstractException, ProductsNotFoundException {
         Entry newEntry = new Entry();
         List<Long> ids = entryBody.getEmpanadaQty()
                 .keySet()
                 .stream()
                 .toList();
         List<Product> products = new ProductService().getMultipleById(ids);
-
+        if (products.size() == 0) {
+            throw new ProductsNotFoundException();
+        }
         List<ProductEntry> empanadaSales = products.stream()
                 .reduce(new ArrayList<ProductEntry>(), (empanadaSaleArrayList, empanada) -> {
                     empanada.setStock(empanada.getStock() + entryBody.getEmpanadaQty()

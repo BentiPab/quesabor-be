@@ -1,12 +1,13 @@
 package com.queempanadas.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity(name = "promotions")
-@NamedQueries(value = {@NamedQuery(name = "GetAllPromos", query = "from promotions")})
+@NamedQueries(value = {
+        @NamedQuery(name = "GetAllPromos", query = "from promotions"),
+        @NamedQuery(name = "GetMultiplePromosByIds", query = "from promotions where idPromo in (:ids)")
+})
 public class Promo {
-
 
 
     @Id
@@ -36,6 +37,7 @@ public class Promo {
     public void setName(String name) {
         this.name = name;
     }
+
     public long getIdPromo() {
         return idPromo;
     }

@@ -14,4 +14,6 @@ public class NewSaleDto extends NewMovement {
         return paymentMethod;
     }
 
+    public ArrayList<Long> getPromotions() {return promotions;}
+
 }

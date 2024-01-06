@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 
 @ControllerAdvice
 public class MyExceptionHandler {
@@ -23,5 +22,25 @@ public class MyExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
                 .body(errorResponse);
     }
+
+    @ExceptionHandler(ProductsNotFoundException.class)
+    protected ResponseEntity<Object> handleConflict(
+            ProductsNotFoundException ex, ServletRequest request) throws IOException {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
+                .body(errorResponse);
+    }
+
+    @ExceptionHandler(PromosNotFoundException.class)
+    protected ResponseEntity<Object> handleConflict(
+            PromosNotFoundException ex, ServletRequest request) throws IOException {
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value())
+                .body(errorResponse);
+    }
+
+
 
 }

@@ -20,7 +20,7 @@ public class ProductJPADAO extends AbstractJPADAO<Product> {
     }
 
     public List<Product> getMultipleByIds(List<Long> ids) {
-        Query<Product> query = getSession().createNamedQuery("GetMultipleByIds", Product.class);
+        Query<Product> query = getSession().createNamedQuery("GetMultipleProductsByIds", Product.class);
         query.setParameter("ids", ids);
         return query.getResultList();
     }

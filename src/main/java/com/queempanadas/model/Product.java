@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity(name = "products")
 @NamedQueries(value = {
         @NamedQuery(name = "GetAllProducts", query = "from products"),
-        @NamedQuery(name = "GetMultipleByIds", query = "from products where idProduct in (:ids)")
+        @NamedQuery(name = "GetMultipleProductsByIds", query = "from products where idProduct in (:ids)")
 })
 public class Product {
 

@@ -5,7 +5,6 @@ import com.queempanadas.model.requests.LoginRequest;
 import com.queempanadas.model.response.ErrorResponse;
 import com.queempanadas.model.response.LoginResponse;
 import com.queempanadas.security.JwtUtil;
-import com.queempanadas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +14,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Collectors;
-
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/api/auth", produces = "application/json")
-public class AuthController extends AbstractController{
+public class AuthController extends AbstractController {
 
     @Autowired
     JwtUtil jwtUtil;
@@ -29,25 +26,30 @@ public class AuthController extends AbstractController{
     AuthenticationManager authenticationManager;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody LoginRequest loginRequest)  {
+    public ResponseEntity login(@RequestBody LoginRequest loginRequest) {
         try {
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        String username = authentication.getName();
-        String role = String.valueOf(authentication.getAuthorities().stream().toList().get(0));
-        User user = new User(username,"",role);
-        String token = jwtUtil.createToken(user);
-        LoginResponse loginRes = new LoginResponse(token);
+            Authentication authentication =
+                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            String username = authentication.getName();
+            String role = String.valueOf(authentication.getAuthorities()
+                    .stream()
+                    .toList()
+                    .get(0));
+            User user = new User(username, "", role);
+            String token = jwtUtil.createToken(user);
+            LoginResponse loginRes = new LoginResponse(token);
 
-        return ResponseEntity.ok(loginRes);
+            return ResponseEntity.ok(loginRes);
 
-    }catch (BadCredentialsException e){
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST,"Invalid username or password");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }catch (Exception e){
+        } catch (BadCredentialsException e) {
+            ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, "Invalid username or password");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errorResponse);
+        } catch (Exception e) {
             ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, e.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
-    }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errorResponse);
+        }
     }
 
 

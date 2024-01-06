@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity(name = "promotion_sale")
+
 public class PromotionSale {
 
 
@@ -17,13 +18,21 @@ public class PromotionSale {
     @JoinColumn(name = "id_sale", nullable = false)
     private Sale sale;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "id_promo", nullable = false)
-    private Promo promotion;
+
+    @JoinColumn(name = "promotion", nullable = false)
+    private String promotion;
 
     @Column(name = "discount")
     private int discount;
+
+    public PromotionSale() {
+    }
+
+    public PromotionSale(Sale sale, Promo promotion) {
+        this.sale = sale;
+        this.promotion = promotion.getName();
+        this.discount = promotion.getDiscount();
+    }
 
     public Sale getSale() {
         return sale;
@@ -33,11 +42,11 @@ public class PromotionSale {
         this.sale = sale;
     }
 
-    public Promo getPromotion() {
+    public String getPromotion() {
         return promotion;
     }
 
-    public void setPromotion(Promo promotion) {
+    public void setPromotion(String promotion) {
         this.promotion = promotion;
     }
 
